@@ -19,8 +19,10 @@
   "homepage": "https://github.com/akuma-phawx/YelpCamp#readme",
   "dependencies": {
     "ejs": "^3.1.5",
+    "ejs-mate": "^3.0.0",
     "express": "^4.17.1",
     "method-override": "^3.0.0",
-    "mongoose": "^5.10.13"
+    "mongoose": "^5.10.13",
+    "morgan": "^1.10.0"
   }
 }

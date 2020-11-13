@@ -1,23 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Campgrounds</title>
-  </head>
-  <body>
-    <h1>All Campgrounds</h1>
-    <form action="/campgrounds/new">
-      <button type="submit">Add Campground</button>
-    </form>
-    <ul>
-      <% for (let camp of campgrounds) {%>
-      <li>
-        <a href="campgrounds/<%= camp._id %> ">
-          <%= camp.title %> @ <b><%= camp.location %></b></a
-        >
-      </li>
-      <% } %>
-    </ul>
-  </body>
-</html>
+<% layout('layouts/boilerplate') %>
+<h1>All Campgrounds</h1>
+<form action="/campgrounds/new">
+  <button type="submit">Add Campground</button>
+</form>
+<ul>
+  <% for (let camp of campgrounds) {%>
+  <li>
+    <a href="campgrounds/<%= camp._id %> ">
+      <%= camp.title %> @ <b><%= camp.location %></b></a
+    >
+  </li>
+  <% } %>
+</ul>

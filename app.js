@@ -3,9 +3,10 @@ const log = console.log;
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
+const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
 const Campground = require("./models/campground");
-const { findByIdAndUpdate } = require("./models/campground");
+
 //connecting to mongo
 mongoose.connect("mongodb://localhost:27017/yelp-camp", {
   useNewUrlParser: true,
@@ -22,6 +23,7 @@ db.once("open", () => {
 
 const app = express();
 
+app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
@@ -57,9 +59,16 @@ app.post("/campgrounds", async (req, res) => {
   res.redirect(`/campgrounds/${camp._id}`);
 });
 
+//Updating Campground
 app.put("/campgrounds/:id", async (req, res) => {
   await Campground.findByIdAndUpdate(req.params.id, { ...req.body.campground });
   res.redirect(`/campgrounds/${req.params.id}`);
+});
+
+//Deleting Campground
+app.delete("/campgrounds/:id", async (req, res) => {
+  await Campground.findByIdAndDelete(req.params.id);
+  res.redirect(`/campgrounds`);
 });
 
 //Show a specific campground.
