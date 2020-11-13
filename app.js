@@ -3,7 +3,9 @@ const log = console.log;
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
 const Campground = require("./models/campground");
+const { findByIdAndUpdate } = require("./models/campground");
 //connecting to mongo
 mongoose.connect("mongodb://localhost:27017/yelp-camp", {
   useNewUrlParser: true,
@@ -23,16 +25,48 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 //Home route
 app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.get("/campground", async (req, res) => {
-  const camp = new Campground({ title: "My backyard" });
-  await camp.save().then(() => {
-    log(camp, " added to DB.");
-  });
+//Show all campgrounds.
+app.get("/campgrounds", async (req, res) => {
+  const campgrounds = await Campground.find({});
+  res.render("campgrounds/index", { campgrounds });
+});
+
+//Get the form to add a new campground.
+app.get("/campgrounds/new", (req, res) => {
+  res.render("campgrounds/new");
+});
+
+//Get the form to edit an existing campground.
+app.get("/campgrounds/:id/edit", async (req, res) => {
+  const { id } = req.params;
+  const campground = await Campground.findById(id);
+  res.render("campgrounds/edit", { campground });
+});
+
+//Adding the new campground in the DB.
+app.post("/campgrounds", async (req, res) => {
+  const camp = new Campground(req.body.campground);
+  await camp.save();
+  res.redirect(`/campgrounds/${camp._id}`);
+});
+
+app.put("/campgrounds/:id", async (req, res) => {
+  await Campground.findByIdAndUpdate(req.params.id, { ...req.body.campground });
+  res.redirect(`/campgrounds/${req.params.id}`);
+});
+
+//Show a specific campground.
+app.get("/campgrounds/:id", async (req, res) => {
+  const { id } = req.params;
+  const camp = await Campground.findById(id);
+  res.render("campgrounds/show", { camp });
 });
 
 app.listen(8080, () => {

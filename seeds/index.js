@@ -19,7 +19,7 @@ db.once("open", () => {
 });
 
 const randomSample = (arr) => {
-  arr[Math.floor(Math.random() * arr.length)];
+  return arr[Math.floor(Math.random() * arr.length)];
 };
 
 //Creating 50 entries to work with.
@@ -34,6 +34,7 @@ const seedDb = async () => {
     //Random Title
     const randomDescriptor = randomSample(descriptors);
     const randomPlace = randomSample(places);
+
     const title = `${randomDescriptor} ${randomPlace}`;
 
     const camp = new Campground({
