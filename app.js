@@ -78,6 +78,7 @@ app.get("/campgrounds/:id", async (req, res) => {
   res.render("campgrounds/show", { camp });
 });
 
+//Express listening on 8080.
 app.listen(8080, () => {
   log("Serving on port 8080.");
 });
