@@ -8,6 +8,7 @@ const catchAsync = require("./utils/catchAsync");
 const ExpressError = require("./utils/ExpressError");
 const methodOverride = require("method-override");
 const Campground = require("./models/campground");
+const { stat } = require("fs");
 
 //connecting to mongo
 mongoose.connect("mongodb://localhost:27017/yelp-camp", {
@@ -64,6 +65,7 @@ app.get(
 app.post(
   "/campgrounds",
   catchAsync(async (req, res, next) => {
+    if (!req.body.campground) throw new ExpressError("Invalid Data", 400);
     const camp = new Campground(req.body.campground);
     await camp.save();
     res.redirect(`/campgrounds/${camp._id}`);
@@ -100,9 +102,16 @@ app.get(
   })
 );
 
+//Unrecognised url
+app.all("*", (req, res, next) => {
+  next(new ExpressError("Page not found", 404));
+});
+
 //Error handler
 app.use((err, req, res, next) => {
-  res.send("Oh boy, something went wrong");
+  const { statusCode = 500 } = err;
+  if (!err.message) err.message = "Oh no something went wrong";
+  res.status(statusCode).render("error", { err });
 });
 
 //Express listening on 8080.
