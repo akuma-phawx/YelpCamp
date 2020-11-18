@@ -2,7 +2,7 @@
   "name": "YelpCamp",
   "version": "1.0.0",
   "description": "Code along project with Colt Steele from The Complete Web Development Bootcamp @Udemy.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
