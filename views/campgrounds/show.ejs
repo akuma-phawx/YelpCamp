@@ -29,5 +29,38 @@
       </div>
       <div class="card-footer text-muted">2 days ago</div>
     </div>
+    <form
+      class="mb-3 validated-form"
+      action="/campgrounds/<%= camp._id%>/reviews"
+      method="POST"
+      novalidate
+    >
+      <h2>Leave a review</h2>
+      <div class="mb-3">
+        <label for="rating" class="form-label">Rating</label>
+        <input
+          id="rating"
+          type="range"
+          class="form-range"
+          name="review[rating]"
+          min="1"
+          max="5"
+          id=""
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="body">Review</label>
+        <textarea
+          class="form-control"
+          name="review[body]"
+          id="body"
+          cols="30"
+          rows="4"
+          required
+        ></textarea>
+        <div class="valid-feedback">Looks Good</div>
+      </div>
+      <button class="btn btn-success">Submit Review</button>
+    </form>
   </div>
 </div>
