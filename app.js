@@ -72,7 +72,7 @@ app.all("*", (req, res, next) => {
 //Error handler
 app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;
-  if (!err.message) err.message = "Oh no something went wrong";
+  if (!err.message) err.message = "Oh no something went wrong!";
   res.status(statusCode).render("error", { err });
 });
 
