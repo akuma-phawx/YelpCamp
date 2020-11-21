@@ -50,6 +50,7 @@ router.post(
     // if (!req.body.campground) throw new ExpressError("Invalid Data", 400);
 
     const camp = new Campground(req.body.campground);
+    camp.author = req.user._id;
     await camp.save();
     req.flash("success", "Campground successfully made.");
     res.redirect(`/campgrounds/${camp._id}`);
@@ -89,7 +90,7 @@ router.get(
     const camp = await await Campground.findById(id)
       .populate("reviews")
       .populate("author");
-    console.log(camp);
+
     if (!camp) {
       req.flash("error", "Campground does not exist");
       return res.redirect("/campgrounds");
