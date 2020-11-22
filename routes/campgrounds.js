@@ -5,8 +5,14 @@ const Campground = require("../models/campground");
 const campgrounds = require("../controllers/campgrounds");
 const { isLoggedIn, isAuthor, validateCampground } = require("../middleware");
 
-//Show all campgrounds.
-router.get("/", catchAsync(campgrounds.index));
+router
+  .route("/")
+  .get(catchAsync(campgrounds.index))
+  .post(
+    isLoggedIn,
+    validateCampground,
+    catchAsync(campgrounds.createCampground)
+  );
 
 //Get the form to add a new campground.
 router.get("/new", isLoggedIn, campgrounds.renderNewForm);
@@ -19,32 +25,15 @@ router.get(
   catchAsync(campgrounds.renderUpdateForm)
 );
 
-//Adding the new campground in the DB.
-router.post(
-  "/",
-  isLoggedIn,
-  validateCampground,
-  catchAsync(campgrounds.createCampground)
-);
-
-//Updating Campground
-router.put(
-  "/:id",
-  isLoggedIn,
-  isAuthor,
-  validateCampground,
-  catchAsync(campgrounds.updateCampground)
-);
-
-//Deleting Campground
-router.delete(
-  "/:id",
-  isLoggedIn,
-  isAuthor,
-  catchAsync(campgrounds.deleteCampground)
-);
-
-//Show a specific campground.
-router.get("/:id", catchAsync(campgrounds.showCampground));
+router
+  .route("/:id")
+  .put(
+    isLoggedIn,
+    isAuthor,
+    validateCampground,
+    catchAsync(campgrounds.updateCampground)
+  )
+  .delete(isLoggedIn, isAuthor, catchAsync(campgrounds.deleteCampground))
+  .get(catchAsync(campgrounds.showCampground));
 
 module.exports = router;
