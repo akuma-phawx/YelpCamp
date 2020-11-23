@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const log = console.log;
 //My Packages
 const express = require("express");
@@ -89,6 +93,6 @@ app.use((err, req, res, next) => {
 });
 
 //Express listening on 8080.
-app.listen(8080, () => {
-  log("Serving on port 8080.");
+app.listen(process.env.PORT, () => {
+  log(`Serving on port ${process.env.PORT}`);
 });
