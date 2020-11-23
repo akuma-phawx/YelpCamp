@@ -1,6 +1,8 @@
 <% layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="/stylesheets/stars.css">
+
 <div class="row">
+  <div id='map' style='width: 400px; height: 300px;'></div>
   <div id="campgroundCarousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
       <% camp.images.forEach((image, i)=>{ %> 
@@ -114,3 +116,10 @@
     <%} %>
   </div>
 </div>
+
+
+<script>
+  const mapToken = "<%- process.env.MAPBOX_TOKEN %>";
+</script>
+
+<script src="/javascripts/showPageMap.js"></script>
