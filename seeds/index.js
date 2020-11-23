@@ -41,6 +41,10 @@ const seedDb = async () => {
       title: title,
       author: "5fb909f27f28445458e21d9e",
       location: `${city.city}, ${city.state}`,
+      geometry: {
+        type: "Point",
+        coordinates: [-113.1331, 47.0202],
+      },
       images: [
         {
           url:
