@@ -26,7 +26,7 @@ const randomSample = (arr) => {
 const seedDb = async () => {
   //Deleting at start.
   await Campground.deleteMany({});
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 500; i++) {
     //Cities have 1000 different ..cities.. soo. yep.
     const random1000 = Math.floor(Math.random() * 1000);
     const city = cities[random1000];
@@ -43,7 +43,7 @@ const seedDb = async () => {
       location: `${city.city}, ${city.state}`,
       geometry: {
         type: "Point",
-        coordinates: [-113.1331, 47.0202],
+        coordinates: [city.longitude, city.latitude],
       },
       images: [
         {
