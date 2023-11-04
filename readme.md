@@ -1,5 +1,7 @@
 # YelpCamp
 
+Live example coming soon
+
 Code along project with Colt Steele from The Complete Web Development Bootcamp @Udemy.
 
 All the knowledge and technologies that have been learned throughout the course will be used in this massive project in order to practise and gain experience.
