@@ -1,4 +1,4 @@
-## YelpCamp___
+## YelpCamp
 
 Live example coming soon
 
